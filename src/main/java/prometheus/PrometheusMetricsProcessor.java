@@ -90,7 +90,7 @@ public abstract class PrometheusMetricsProcessor<T> {
                 metricFamily = parser.parse();
             }
         } catch (Exception e) {
-            log.debugf(e, "Error while processing binary data");
+            log.error("Error while processing binary data", e);
         }
 
         // tell the walker we have finished
