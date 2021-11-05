@@ -1,0 +1,12 @@
+# HELP go_gc_duration_seconds A summary of the GC invocation durations.
+# TYPE go_gc_duration_seconds untyped
+go_gc_duration_seconds{quantile="0"} 0.0025097400000000003 1636105762107
+go_gc_duration_seconds{quantile="0.25"} 0.002858241 1636105762107
+go_gc_duration_seconds{quantile="0.5"} 0.0030191600000000003 1636105762107
+go_gc_duration_seconds{quantile="0.75"} 0.003817389 1636105762107
+go_gc_duration_seconds{quantile="1"} 0.007688749000000001 1636105762107
+go_gc_duration_seconds_sum 14.316955358 1636105762107
+go_gc_duration_seconds_count 6943 1636105762107
+# HELP go_goroutines Number of goroutines that currently exist.
+# TYPE go_goroutines untyped
+go_goroutines 79 1636105777242

@@ -28,6 +28,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import prometheus.text.TextPrometheusMetricDataParser;
 import prometheus.text.TextPrometheusMetricsProcessor;
+import prometheus.text.TextSample;
 import prometheus.types.Counter;
 import prometheus.types.Gauge;
 import prometheus.types.Histogram;
@@ -123,9 +124,22 @@ public class TextPrometheusParserTest {
         Assert.assertEquals(50.0, second.getQuantiles().get(1).getValue(), 0.01);
         Assert.assertEquals(0.99, second.getQuantiles().get(2).getQuantile(), 0.01);
         Assert.assertEquals(60.0, second.getQuantiles().get(2).getValue(), 0.01);
-
     }
 
+    @Test
+    public void testFederation() throws Exception {
+    	List<MetricFamily> metricFamilies = parseTestFile("prometheus-federation.txt");
+    	
+    	Assert.assertNotNull(metricFamilies);
+        Assert.assertEquals(2, metricFamilies.size());
+        
+        // the metrics should appear in order as they appear in the text.
+        TextSample first = (TextSample) metricFamilies.get(0).getMetrics().get(0);
+        Assert.assertEquals(1, first.getLabels().size());
+        Assert.assertTrue(first.getLabels().containsKey("quantile"));
+        Assert.assertEquals("0", first.getLabels().get("quantile"));
+    }
+    
     @Test
     public void testHistogram() throws Exception {
         List<MetricFamily> metricFamilies = parseTestFile("prometheus-histogram.txt");

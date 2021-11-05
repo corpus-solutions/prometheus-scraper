@@ -14,12 +14,18 @@ public class TextSample extends Metric {
     public static class Builder extends Metric.Builder<Builder> {
         private String value;
         private String line;
+        private String timestamp;
 
         public TextSample build() {
             return new TextSample(this);
         }
 
         public Builder setValue(String value) {
+            this.value = value;
+            return this;
+        }
+        
+        public Builder setTimestamp(String value) {
             this.value = value;
             return this;
         }
@@ -32,16 +38,22 @@ public class TextSample extends Metric {
 
     private final String value;
     private final String line;
+    private final String timestamp;
 
     public TextSample(Builder builder) {
         super(builder);
         this.value = builder.value;
         this.line = builder.line;
+        this.timestamp = builder.timestamp;
     }
 
     public String getValue() {
         return value;
     }
+    
+    public String getTimestamp() {
+		return timestamp;
+	}
 
     /**
      * This is the line of text in the text data where this sample came from.

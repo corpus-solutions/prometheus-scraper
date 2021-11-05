@@ -83,6 +83,7 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
                     		 builders.put(textSample.getLabels(),
                                      new TextSample.Builder().setName(name)
                                              .setValue(textSample.getValue())
+                                             .setTimestamp(textSample.getTimestamp())
                                              .addLabels(textSample.getLabels()));
                              break;
                         case COUNTER:
@@ -304,6 +305,7 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
         StringBuilder labelname = new StringBuilder();
         StringBuilder labelvalue = new StringBuilder();
         StringBuilder value = new StringBuilder();
+        StringBuilder timestamp = new StringBuilder();
         Map<String, String> labels = new LinkedHashMap<>();
 
         String state = "name";
@@ -403,9 +405,15 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
                 }
             } else if (state.equals("value")) {
                 if (charAt == ' ' || charAt == '\t') {
-                    break; // timestamps are NOT supported - ignoring
+                	state = "timestamps";
                 } else {
                     value.append(charAt);
+                }
+            } else if (state.equals("timestamps")) {
+            	if (charAt == ' ' || charAt == '\t') {
+            		// do nothing
+                } else {
+                    timestamp.append(charAt);
                 }
             }
         }
@@ -414,8 +422,9 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
                 .setLine(line)
                 .setName(name.toString())
                 .setValue(value.toString())
+                .setTimestamp(timestamp.toString())
                 .addLabels(labels).build();
-
+        
         return sample;
     }
 
