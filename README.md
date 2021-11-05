@@ -26,7 +26,7 @@ To obtain this Prometheus scraper, use the following Maven dependency:
 
 ````xml
 <dependency>
-  <groupId>org.github.jmazzitelli</groupId>
+  <groupId>cz.corpus</groupId>
   <artifactId>prometheus-scraper</artifactId>
   <version>#.#.#</version>
 </dependency>
