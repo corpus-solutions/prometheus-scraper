@@ -26,7 +26,7 @@ public class TextSample extends Metric {
         }
         
         public Builder setTimestamp(String value) {
-            this.value = value;
+            this.timestamp = value;
             return this;
         }
 

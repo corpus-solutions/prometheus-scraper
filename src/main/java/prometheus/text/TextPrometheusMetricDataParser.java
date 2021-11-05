@@ -157,7 +157,7 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
                             break;
                     }
                 } catch (Exception e) {
-                    log.errorv(e, "Error processing sample. This metric sample will be ignored: %s",
+                    log.errorv(e, "Error processing sample. This metric sample will be ignored: {0}",
                             textSample.getLine());
                 }
             }
@@ -167,7 +167,7 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
                 try {
                     metricFamilyBuilder.addMetric(builder.build());
                 } catch (Exception e) {
-                    log.errorv(e, "Error building metric for metric family [%s] - it will be ignored", name);
+                    log.errorv(e, "Error building metric for metric family [{0}] - it will be ignored", name);
                 }
             }
 
@@ -284,7 +284,7 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
                     }
                 }
             } catch (Exception e) {
-                log.errorv(e, "Failed to process line - it will be ignored: %s", line);
+                log.errorv(e, "Failed to process line - it will be ignored: {0}", line);
             }
 
             // go to the next line
