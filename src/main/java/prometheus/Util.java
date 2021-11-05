@@ -1,5 +1,7 @@
 package prometheus;
 
+import java.util.Locale;
+
 public class Util {
 
     public static double convertStringToDouble(String valueString) {
@@ -21,6 +23,6 @@ public class Util {
         if (Double.isInfinite(value)) {
             return (value < 0.0) ? "-Inf" : "+Inf";
         }
-        return String.format("%f", value);
+        return String.format(Locale.US, "%f", value);
     }
 }
