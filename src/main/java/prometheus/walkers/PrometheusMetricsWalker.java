@@ -2,6 +2,7 @@ package prometheus.walkers;
 
 import java.util.Map;
 
+import prometheus.text.TextSample;
 import prometheus.types.Counter;
 import prometheus.types.Gauge;
 import prometheus.types.Histogram;
@@ -69,6 +70,17 @@ public interface PrometheusMetricsWalker {
      */
     void walkHistogramMetric(MetricFamily family, Histogram histogram, int index);
 
+    /**
+     * Called when a new untyped metric is found.
+     *
+     * @param family information about the family being traversed such as the name, help description, etc.
+     * @param metric the metric being processed
+     * @param index index of the metric being processed, where 0 is the first one.
+     */
+	default void walkUntypedMetric(MetricFamily convertedMetricFamily, TextSample metric, int metricIndex) {
+		//OVERRIDE IF YOU WANT TO SUPPORT UNTYPED METRICS
+	}
+    
     /**
      * Convienence method that takes the given label list and returns a string in the form of
      * "labelName1=labelValue1,labelName2=labelValue2,..."

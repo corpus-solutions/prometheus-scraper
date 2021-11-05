@@ -79,6 +79,12 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
             for (TextSample textSample : textSamples) {
                 try {
                     switch (type) {
+                    	case UNTYPED:
+                    		 builders.put(textSample.getLabels(),
+                                     new TextSample.Builder().setName(name)
+                                             .setValue(textSample.getValue())
+                                             .addLabels(textSample.getLabels()));
+                             break;
                         case COUNTER:
                             builders.put(textSample.getLabels(),
                                     new Counter.Builder().setName(name)
@@ -237,6 +243,9 @@ public class TextPrometheusMetricDataParser extends PrometheusMetricDataParser<M
                         context.type = MetricType.valueOf(parts[3].toUpperCase());
                         context.allowedNames.clear();
                         switch (context.type) {
+                        	case UNTYPED:
+                        		context.allowedNames.add(context.name);
+                                break;
                             case COUNTER:
                                 context.allowedNames.add(context.name);
                                 break;

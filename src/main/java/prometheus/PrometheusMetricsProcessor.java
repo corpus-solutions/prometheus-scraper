@@ -3,6 +3,8 @@ package prometheus;
 import java.io.InputStream;
 
 import org.jboss.logging.Logger;
+
+import prometheus.text.TextSample;
 import prometheus.types.Counter;
 import prometheus.types.Gauge;
 import prometheus.types.MetricFamily;
@@ -61,6 +63,10 @@ public abstract class PrometheusMetricsProcessor<T> {
 
                 for (prometheus.types.Metric metric : convertedMetricFamily.getMetrics()) {
                     switch (convertedMetricFamily.getType()) {
+                    	case UNTYPED:
+                    		walker.walkUntypedMetric(convertedMetricFamily, (TextSample) metric, metricIndex);
+                            break;
+                            
                         case COUNTER:
                             walker.walkCounterMetric(convertedMetricFamily, (Counter) metric, metricIndex);
                             break;

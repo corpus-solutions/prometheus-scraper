@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import prometheus.text.TextSample;
+
 /**
  * Contains all metrics within a family (that is, of the same name). All metrics in a family have the same type.
  */
@@ -58,6 +60,9 @@ public class MetricFamily {
 
         Class<? extends Metric> expectedMetricClassType;
         switch (builder.type) {
+        	case UNTYPED:
+        		expectedMetricClassType = TextSample.class;
+                break;
             case COUNTER:
                 expectedMetricClassType = Counter.class;
                 break;
